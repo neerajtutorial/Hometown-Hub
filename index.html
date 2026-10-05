@@ -1,0 +1,2500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hometown Hub</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#07090d;
+    --card:#10151d;
+    --card2:#151b25;
+    --border:#252d3a;
+    --text:#f5f7fb;
+    --muted:#8993a5;
+    --purple:#7c5cff;
+    --green:#19d3ae;
+    --danger:#ff5577;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:
+        radial-gradient(circle at 10% 0%,#28165b 0%,transparent 28%),
+        radial-gradient(circle at 100% 20%,#06473f 0%,transparent 25%),
+        var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* HEADER */
+
+.header{
+    height:72px;
+    background:#080b10e8;
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(18px);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:0 28px;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.logo span{
+    color:var(--green);
+}
+
+.search{
+    flex:1;
+    max-width:580px;
+    background:#121823;
+    color:white;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px 16px;
+    outline:none;
+}
+
+.search:focus{
+    border-color:var(--purple);
+}
+
+.header-actions{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.icon-btn{
+    border:1px solid var(--border);
+    background:#121823;
+    color:white;
+    border-radius:12px;
+    padding:10px 12px;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--purple),var(--green));
+    font-weight:900;
+}
+
+/* LAYOUT */
+
+.layout{
+    width:min(1400px,100%);
+    margin:auto;
+    padding:22px;
+    display:grid;
+    grid-template-columns:240px minmax(0,780px) 280px;
+    gap:22px;
+}
+
+.sidebar,
+.rightbar{
+    position:sticky;
+    top:94px;
+    height:max-content;
+}
+
+.nav{
+    display:grid;
+    gap:6px;
+}
+
+.nav button{
+    border:0;
+    background:transparent;
+    color:#aeb7c7;
+    text-align:left;
+    padding:13px 15px;
+    border-radius:12px;
+}
+
+.nav button:hover,
+.nav button.active{
+    background:#171d29;
+    color:white;
+}
+
+.section-title{
+    color:#667185;
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin:25px 12px 9px;
+}
+
+.community-mini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    color:#d0d6df;
+}
+
+.community-icon{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    background:#192030;
+    display:grid;
+    place-items:center;
+}
+
+/* CARDS */
+
+.card{
+    background:linear-gradient(180deg,#111620,#0e131b);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:0 20px 60px #0007;
+}
+
+.hero{
+    min-height:260px;
+    padding:30px;
+    overflow:hidden;
+    position:relative;
+    background:
+        linear-gradient(135deg,#1d1642,#102c27);
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    right:-100px;
+    top:-100px;
+    background:#7c5cff44;
+    filter:blur(60px);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.hero h1{
+    font-size:36px;
+    margin:12px 0;
+}
+
+.hero p{
+    color:var(--muted);
+    line-height:1.6;
+}
+
+.tag{
+    display:inline-block;
+    padding:6px 9px;
+    border-radius:999px;
+    background:#18242b;
+    border:1px solid #1e3e39;
+    color:#55e0c1;
+    font-size:11px;
+    font-weight:700;
+}
+
+.row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.space{
+    justify-content:space-between;
+}
+
+.muted{
+    color:var(--muted);
+}
+
+/* BUTTONS */
+
+.btn{
+    border:1px solid var(--border);
+    background:#151c28;
+    color:white;
+    border-radius:11px;
+    padding:10px 15px;
+}
+
+.btn:hover{
+    filter:brightness(1.15);
+}
+
+.primary{
+    background:linear-gradient(135deg,var(--purple),#9b67ff);
+    border:0;
+}
+
+.green{
+    background:linear-gradient(135deg,#13b894,#21d9ad);
+    border:0;
+    color:#03120f;
+}
+
+/* COMPOSER */
+
+.composer{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.composer input{
+    flex:1;
+    background:#151b25;
+    color:white;
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:13px;
+    outline:none;
+}
+
+/* POSTS */
+
+.post-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.post-body{
+    color:#dbe0e9;
+    line-height:1.7;
+    margin:16px 0;
+    font-size:15px;
+}
+
+.post-image{
+    height:200px;
+    border-radius:14px;
+    margin:14px 0;
+    display:grid;
+    place-items:center;
+    font-size:65px;
+    background:
+        linear-gradient(135deg,#24205c,#0b514b);
+}
+
+.post-actions{
+    display:flex;
+    gap:6px;
+    border-top:1px solid var(--border);
+    padding-top:12px;
+    margin-top:14px;
+}
+
+.post-actions button{
+    border:0;
+    background:transparent;
+    color:#8993a5;
+    padding:8px 10px;
+    border-radius:9px;
+}
+
+.post-actions button:hover{
+    background:#171d29;
+    color:white;
+}
+
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.mini-card{
+    background:#121821;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:15px;
+}
+
+/* METRICS */
+
+.metric{
+    display:flex;
+    justify-content:space-between;
+    padding:13px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.metric:last-child{
+    border-bottom:0;
+}
+
+/* EVENTS */
+
+.event-date{
+    color:#72e8cc;
+    font-size:12px;
+    margin-bottom:7px;
+}
+
+/* PROFILE */
+
+.profile-cover{
+    height:150px;
+    border-radius:15px;
+    background:
+        radial-gradient(circle at 20% 30%,#9b67ff66,transparent 30%),
+        linear-gradient(135deg,#302065,#0d6555);
+}
+
+.profile-avatar{
+    width:82px;
+    height:82px;
+    border-radius:50%;
+    border:5px solid #10151e;
+    margin:-40px 0 0 20px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--purple),var(--green));
+    font-size:26px;
+    font-weight:900;
+}
+
+/* AUTH */
+
+.auth{
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+    padding:25px;
+}
+
+.auth-box{
+    width:min(460px,100%);
+    background:#0e131b;
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:32px;
+    box-shadow:0 30px 100px #000;
+}
+
+.auth-box h1{
+    margin:20px 0 8px;
+}
+
+.auth-box input{
+    width:100%;
+    background:#151b25;
+    border:1px solid var(--border);
+    color:white;
+    padding:13px;
+    border-radius:12px;
+    margin:7px 0 13px;
+    outline:none;
+}
+
+.auth-box label{
+    color:#b9c1ce;
+    font-size:13px;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:#000c;
+    display:none;
+    place-items:center;
+    z-index:500;
+    padding:20px;
+}
+
+.modal.show{
+    display:grid;
+}
+
+.modal-box{
+    width:min(600px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:#10151e;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:24px;
+    box-shadow:0 30px 100px #000;
+}
+
+.modal-box input,
+.modal-box textarea,
+.modal-box select{
+    width:100%;
+    background:#171e29;
+    color:white;
+    border:1px solid var(--border);
+    border-radius:11px;
+    padding:12px;
+    margin:7px 0 14px;
+    outline:none;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    background:#171e29;
+    border:1px solid #344052;
+    padding:14px 18px;
+    border-radius:12px;
+    display:none;
+    z-index:900;
+}
+
+.toast.show{
+    display:block;
+}
+
+/* MOBILE */
+
+@media(max-width:1050px){
+
+    .layout{
+        grid-template-columns:210px 1fr;
+    }
+
+    .rightbar{
+        display:none;
+    }
+}
+
+@media(max-width:720px){
+
+    .header{
+        padding:0 14px;
+    }
+
+    .search{
+        display:none;
+    }
+
+    .layout{
+        display:block;
+        padding:14px;
+    }
+
+    .sidebar{
+        position:static;
+        margin-bottom:15px;
+    }
+
+    .nav{
+        display:flex;
+        overflow-x:auto;
+    }
+
+    .nav button{
+        white-space:nowrap;
+    }
+
+    .section-title,
+    .community-mini{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:27px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        border-radius:15px;
+    }
+
+    .header-actions .icon-btn:first-child{
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<div id="toast" class="toast"></div>
+
+<div id="modal" class="modal">
+    <div id="modalBox" class="modal-box"></div>
+</div>
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+const defaultData = {
+
+    users:[
+        {
+            id:1,
+            name:"Neeraj Kumar",
+            email:"demo@hometown.app",
+            password:"123456",
+            city:"Jaipur",
+            bio:"Building digital communities • BCA student",
+            role:"user"
+        }
+    ],
+
+    communities:[
+        {
+            id:1,
+            name:"Jaipur Hometown",
+            city:"Jaipur, Rajasthan",
+            description:"For everyone who calls Jaipur home.",
+            members:1248,
+            joined:true
+        },
+        {
+            id:2,
+            name:"Kota Students",
+            city:"Kota, Rajasthan",
+            description:"Students, alumni and mentors.",
+            members:864,
+            joined:false
+        },
+        {
+            id:3,
+            name:"Udaipur Connect",
+            city:"Udaipur, Rajasthan",
+            description:"Culture, events and local stories.",
+            members:523,
+            joined:false
+        },
+        {
+            id:4,
+            name:"Ajmer Community",
+            city:"Ajmer, Rajasthan",
+            description:"Local updates and neighborhood help.",
+            members:397,
+            joined:false
+        }
+    ],
+
+    posts:[
+        {
+            id:1,
+            user:"Aarav Mehta",
+            community:"Jaipur Hometown",
+            time:"18 min ago",
+            text:"Pink City clean-up drive this Sunday! Volunteers are welcome. Let's make our neighborhoods better together. 🌱",
+            likes:84,
+            comments:16,
+            tag:"Community Initiative",
+            image:"🌇"
+        },
+        {
+            id:2,
+            user:"Priya Sharma",
+            community:"Jaipur Hometown",
+            time:"1 hr ago",
+            text:"Found this beautiful old photo of our city. What is your favorite memory from Jaipur?",
+            likes:132,
+            comments:28,
+            tag:"Local Culture",
+            image:"🏰"
+        },
+        {
+            id:3,
+            user:"Rohan Singh",
+            community:"Kota Students",
+            time:"3 hrs ago",
+            text:"Free peer-study meetup this weekend. Bringing together students preparing for placements and exams.",
+            likes:41,
+            comments:9,
+            tag:"Education"
+        }
+    ],
+
+    events:[
+        {
+            id:1,
+            title:"Jaipur Clean City Drive",
+            date:"12 Oct 2026",
+            time:"7:30 AM",
+            place:"Central Park, Jaipur",
+            going:87
+        },
+        {
+            id:2,
+            title:"Heritage Walk & Photography",
+            date:"18 Oct 2026",
+            time:"5:00 PM",
+            place:"Albert Hall Museum",
+            going:46
+        },
+        {
+            id:3,
+            title:"Community Tech Meetup",
+            date:"24 Oct 2026",
+            time:"11:00 AM",
+            place:"Innovation Hub, Jaipur",
+            going:31
+        }
+    ],
+
+    notifications:[
+        {
+            id:1,
+            text:"Aarav invited you to the Clean City Drive.",
+            time:"10m"
+        },
+        {
+            id:2,
+            text:"Your post received 12 new likes.",
+            time:"1h"
+        },
+        {
+            id:3,
+            text:"New announcement in Jaipur Hometown.",
+            time:"3h"
+        }
+    ]
+};
+
+
+/* =========================
+   STATE
+========================= */
+
+let data =
+    JSON.parse(localStorage.getItem("hometownHubData")) ||
+    JSON.parse(JSON.stringify(defaultData));
+
+let currentUser =
+    JSON.parse(localStorage.getItem("hometownHubUser")) ||
+    null;
+
+let currentPage = "home";
+let searchQuery = "";
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function saveData(){
+
+    localStorage.setItem(
+        "hometownHubData",
+        JSON.stringify(data)
+    );
+
+    localStorage.setItem(
+        "hometownHubUser",
+        JSON.stringify(currentUser)
+    );
+}
+
+
+function showToast(message){
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+        toast.classList.remove("show");
+    },2200);
+}
+
+
+function initials(name){
+
+    return name
+        .split(" ")
+        .map(word=>word[0])
+        .join("")
+        .substring(0,2)
+        .toUpperCase();
+}
+
+
+function escapeHTML(value){
+
+    return String(value).replace(/[&<>"']/g, char=>({
+
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+
+    }[char]));
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+function showLogin(){
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="auth">
+
+            <div class="auth-box">
+
+                <div class="logo">
+                    Hometown<span>Hub</span>
+                </div>
+
+                <h1>Welcome back 👋</h1>
+
+                <p class="muted">
+                    Your people. Your place. Your community.
+                </p>
+
+                <br>
+
+                <label>Email</label>
+
+                <input
+                    id="loginEmail"
+                    type="email"
+                    placeholder="you@example.com"
+                >
+
+                <label>Password</label>
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="••••••••"
+                >
+
+                <button
+                    class="btn primary"
+                    style="width:100%;margin-top:8px"
+                    onclick="login()"
+                >
+                    Sign In
+                </button>
+
+                <button
+                    class="btn"
+                    style="width:100%;margin-top:10px"
+                    onclick="showSignup()"
+                >
+                    Create Account
+                </button>
+
+                <p
+                    class="muted"
+                    style="text-align:center;margin-top:20px;font-size:12px"
+                >
+                    Demo Login:<br>
+                    demo@hometown.app / 123456
+                </p>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function showSignup(){
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="auth">
+
+            <div class="auth-box">
+
+                <div class="logo">
+                    Hometown<span>Hub</span>
+                </div>
+
+                <h1>Create Your Identity</h1>
+
+                <p class="muted">
+                    Join people from your hometown.
+                </p>
+
+                <br>
+
+                <input
+                    id="signupName"
+                    placeholder="Full Name"
+                >
+
+                <input
+                    id="signupEmail"
+                    type="email"
+                    placeholder="Email"
+                >
+
+                <input
+                    id="signupCity"
+                    placeholder="Hometown / City"
+                >
+
+                <input
+                    id="signupPassword"
+                    type="password"
+                    placeholder="Password"
+                >
+
+                <button
+                    class="btn green"
+                    style="width:100%"
+                    onclick="signup()"
+                >
+                    Create Account
+                </button>
+
+                <button
+                    class="btn"
+                    style="width:100%;margin-top:10px"
+                    onclick="showLogin()"
+                >
+                    Back to Login
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function login(){
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const user =
+        data.users.find(
+            user =>
+                user.email === email &&
+                user.password === password
+        );
+
+    if(!user){
+
+        showToast("Invalid email or password");
+        return;
+    }
+
+    currentUser = user;
+
+    saveData();
+
+    render();
+}
+
+
+function signup(){
+
+    const name =
+        document.getElementById("signupName").value.trim();
+
+    const email =
+        document.getElementById("signupEmail").value.trim();
+
+    const city =
+        document.getElementById("signupCity").value.trim();
+
+    const password =
+        document.getElementById("signupPassword").value;
+
+    if(!name || !email || !city || !password){
+
+        showToast("Please fill all fields");
+        return;
+    }
+
+    if(
+        data.users.some(
+            user=>user.email.toLowerCase()===email.toLowerCase()
+        )
+    ){
+
+        showToast("Email already registered");
+        return;
+    }
+
+    const newUser = {
+
+        id:Date.now(),
+        name,
+        email,
+        password,
+        city,
+        bio:"New Hometown Hub member",
+        role:"user"
+    };
+
+    data.users.push(newUser);
+
+    currentUser = newUser;
+
+    saveData();
+
+    showToast("Welcome to Hometown Hub!");
+
+    render();
+}
+
+
+function logout(){
+
+    currentUser = null;
+
+    localStorage.removeItem("hometownHubUser");
+
+    showLogin();
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function navigate(page){
+
+    currentPage = page;
+
+    render();
+}
+
+
+/* =========================
+   MAIN LAYOUT
+========================= */
+
+function layout(content){
+
+    return `
+
+        <div>
+
+            <header class="header">
+
+                <div class="logo">
+                    Hometown<span>Hub</span>
+                </div>
+
+                <input
+                    class="search"
+                    placeholder="Search people, communities, posts..."
+                    value="${escapeHTML(searchQuery)}"
+                    oninput="
+                        searchQuery=this.value;
+                        render();
+                    "
+                >
+
+                <div class="header-actions">
+
+                    <button
+                        class="icon-btn"
+                        onclick="openCreatePost()"
+                    >
+                        ＋
+                    </button>
+
+                    <button
+                        class="icon-btn"
+                        onclick="navigate('notifications')"
+                    >
+                        🔔
+                    </button>
+
+                    <div class="avatar">
+                        ${initials(currentUser.name)}
+                    </div>
+
+                    <button
+                        class="icon-btn"
+                        onclick="logout()"
+                    >
+                        ↪
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <div class="layout">
+
+                <aside class="sidebar">
+
+                    <div class="nav">
+
+                        ${navButton("home","⌂","Home")}
+
+                        ${navButton("communities","◉","Communities")}
+
+                        ${navButton("events","◷","Events")}
+
+                        ${navButton("notifications","♢","Notifications")}
+
+                        ${navButton("profile","◎","My Profile")}
+
+                        ${navButton("admin","⚙","Admin Center")}
+
+                    </div>
+
+
+                    <div class="section-title">
+                        Your Communities
+                    </div>
+
+                    ${
+                        data.communities
+                            .filter(c=>c.joined)
+                            .map(c=>`
+                                <div class="community-mini">
+
+                                    <div class="community-icon">
+                                        🏠
+                                    </div>
+
+                                    <span>
+                                        ${escapeHTML(c.name)}
+                                    </span>
+
+                                </div>
+                            `)
+                            .join("")
+                    }
+
+
+                    <div class="section-title">
+                        Discover
+                    </div>
+
+                    <div class="community-mini">
+                        <div class="community-icon">✦</div>
+                        <span>Local Culture</span>
+                    </div>
+
+                    <div class="community-mini">
+                        <div class="community-icon">🤝</div>
+                        <span>Volunteering</span>
+                    </div>
+
+                </aside>
+
+
+                <main>
+
+                    ${content}
+
+                </main>
+
+
+                <aside class="rightbar">
+
+                    ${rightSidebar()}
+
+                </aside>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function navButton(page,icon,label){
+
+    return `
+
+        <button
+            class="${currentPage===page ? "active":""}"
+            onclick="navigate('${page}')"
+        >
+            ${icon}
+            &nbsp;
+            ${label}
+        </button>
+    `;
+}
+
+
+/* =========================
+   RIGHT SIDEBAR
+========================= */
+
+function rightSidebar(){
+
+    return `
+
+        <div class="card">
+
+            <div class="row space">
+
+                <b>Trending Near You</b>
+
+                <span class="muted">⋯</span>
+
+            </div>
+
+            <div class="metric">
+                <span>#JaipurCleanUp</span>
+                <b>2.4k</b>
+            </div>
+
+            <div class="metric">
+                <span>#DiwaliInJaipur</span>
+                <b>1.8k</b>
+            </div>
+
+            <div class="metric">
+                <span>#LocalJobs</span>
+                <b>942</b>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="row space">
+
+                <b>Upcoming Events</b>
+
+                <button
+                    class="btn"
+                    onclick="navigate('events')"
+                >
+                    View
+                </button>
+
+            </div>
+
+            ${
+                data.events.slice(0,2).map(event=>`
+
+                    <div
+                        class="mini-card"
+                        style="margin-top:10px"
+                    >
+
+                        <div class="event-date">
+                            ${escapeHTML(event.date)}
+                            •
+                            ${escapeHTML(event.time)}
+                        </div>
+
+                        <b>
+                            ${escapeHTML(event.title)}
+                        </b>
+
+                        <div
+                            class="muted"
+                            style="margin-top:5px"
+                        >
+                            📍 ${escapeHTML(event.place)}
+                        </div>
+
+                    </div>
+
+                `).join("")
+            }
+
+        </div>
+    `;
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function homePage(){
+
+    const posts =
+        data.posts.filter(post=>{
+
+            if(!searchQuery) return true;
+
+            return JSON.stringify(post)
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase());
+
+        });
+
+
+    return layout(`
+
+        <section class="hero card">
+
+            <div class="hero-content">
+
+                <span class="tag">
+                    YOUR HOMETOWN, DIGITALLY
+                </span>
+
+                <h1>
+                    Welcome home,
+                    ${escapeHTML(currentUser.name.split(" ")[0])}.
+                </h1>
+
+                <p>
+                    Connect with people, stories and
+                    opportunities from
+                    ${escapeHTML(currentUser.city)}.
+                </p>
+
+                <br>
+
+                <button
+                    class="btn primary"
+                    onclick="navigate('communities')"
+                >
+                    Explore Communities →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <div class="card composer">
+
+            <div class="avatar">
+                ${initials(currentUser.name)}
+            </div>
+
+            <input
+                placeholder="Share something with your community..."
+                onclick="openCreatePost()"
+                readonly
+            >
+
+        </div>
+
+
+        ${
+            posts.length
+            ?
+            posts.map(postCard).join("")
+            :
+            `
+                <div class="card">
+                    <div class="muted" style="text-align:center;padding:40px">
+                        No posts found.
+                    </div>
+                </div>
+            `
+        }
+
+    `);
+}
+
+
+/* =========================
+   POST CARD
+========================= */
+
+function postCard(post){
+
+    return `
+
+        <article class="card">
+
+            <div class="post-head">
+
+                <div class="row">
+
+                    <div class="avatar">
+                        ${initials(post.user)}
+                    </div>
+
+                    <div>
+
+                        <b>
+                            ${escapeHTML(post.user)}
+                        </b>
+
+                        <div class="muted">
+                            ${escapeHTML(post.community)}
+                            ·
+                            ${escapeHTML(post.time)}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button class="icon-btn">
+                    ⋯
+                </button>
+
+            </div>
+
+
+            <p class="post-body">
+                ${escapeHTML(post.text)}
+            </p>
+
+
+            ${
+                post.image
+                ?
+                `
+                    <div class="post-image">
+                        ${post.image}
+                    </div>
+                `
+                :
+                ""
+            }
+
+
+            <span class="tag">
+                ${escapeHTML(post.tag)}
+            </span>
+
+
+            <div class="post-actions">
+
+                <button onclick="likePost(${post.id})">
+                    ♥ ${post.likes}
+                </button>
+
+                <button onclick="showToast('Comments opened')">
+                    💬 ${post.comments}
+                </button>
+
+                <button onclick="sharePost()">
+                    ↗ Share
+                </button>
+
+                <button onclick="showToast('Post saved')">
+                    🔖 Save
+                </button>
+
+            </div>
+
+        </article>
+    `;
+}
+
+
+function likePost(id){
+
+    const post =
+        data.posts.find(post=>post.id===id);
+
+    if(post){
+
+        post.likes++;
+
+        saveData();
+
+        render();
+    }
+}
+
+
+function sharePost(){
+
+    if(navigator.clipboard){
+
+        navigator.clipboard.writeText(
+            "Check this out on Hometown Hub!"
+        );
+    }
+
+    showToast("Share link copied!");
+}
+
+
+/* =========================
+   COMMUNITIES
+========================= */
+
+function communitiesPage(){
+
+    const communities =
+        data.communities.filter(community=>{
+
+            if(!searchQuery) return true;
+
+            return JSON.stringify(community)
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase());
+
+        });
+
+
+    return layout(`
+
+        <div
+            class="row space"
+            style="margin-bottom:16px"
+        >
+
+            <div>
+
+                <h1>Communities</h1>
+
+                <p class="muted">
+                    Find your people by city,
+                    village or hometown.
+                </p>
+
+            </div>
+
+            <button
+                class="btn primary"
+                onclick="openCreateCommunity()"
+            >
+                ＋ Create Community
+            </button>
+
+        </div>
+
+
+        <div class="grid">
+
+            ${
+                communities.map(community=>`
+
+                    <div class="card">
+
+                        <div class="row space">
+
+                            <div class="avatar">
+                                🏠
+                            </div>
+
+                            <span class="tag">
+                                ${community.members}
+                                members
+                            </span>
+
+                        </div>
+
+                        <h2 style="margin:15px 0 7px">
+                            ${escapeHTML(community.name)}
+                        </h2>
+
+                        <div class="muted">
+                            📍 ${escapeHTML(community.city)}
+                        </div>
+
+                        <p
+                            class="muted"
+                            style="margin:12px 0 18px"
+                        >
+                            ${escapeHTML(community.description)}
+                        </p>
+
+                        <button
+                            class="btn ${community.joined ? "" : "green"}"
+                            style="width:100%"
+                            onclick="toggleCommunity(${community.id})"
+                        >
+                            ${
+                                community.joined
+                                ? "✓ Joined"
+                                : "Join Community"
+                            }
+                        </button>
+
+                    </div>
+
+                `).join("")
+            }
+
+        </div>
+    `);
+}
+
+
+function toggleCommunity(id){
+
+    const community =
+        data.communities.find(c=>c.id===id);
+
+    if(!community) return;
+
+    community.joined = !community.joined;
+
+    community.members +=
+        community.joined ? 1 : -1;
+
+    saveData();
+
+    showToast(
+        community.joined
+        ? "Community joined!"
+        : "Community left!"
+    );
+
+    render();
+}
+
+
+/* =========================
+   EVENTS
+========================= */
+
+function eventsPage(){
+
+    return layout(`
+
+        <div
+            class="row space"
+            style="margin-bottom:16px"
+        >
+
+            <div>
+
+                <h1>Community Events</h1>
+
+                <p class="muted">
+                    Meet offline. Build something together.
+                </p>
+
+            </div>
+
+            <button
+                class="btn primary"
+                onclick="openCreateEvent()"
+            >
+                ＋ Create Event
+            </button>
+
+        </div>
+
+
+        ${
+            data.events.map(event=>`
+
+                <div class="card">
+
+                    <div class="row space">
+
+                        <div>
+
+                            <span class="tag">
+                                COMMUNITY EVENT
+                            </span>
+
+                            <h2 style="margin:12px 0">
+                                ${escapeHTML(event.title)}
+                            </h2>
+
+                            <p class="muted">
+                                📅 ${escapeHTML(event.date)}
+                                at
+                                ${escapeHTML(event.time)}
+                                <br>
+                                📍 ${escapeHTML(event.place)}
+                            </p>
+
+                        </div>
+
+                        <div style="text-align:center">
+
+                            <div class="avatar">
+                                📅
+                            </div>
+
+                            <b>
+                                ${event.going}
+                            </b>
+
+                            <div class="muted">
+                                going
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <button
+                        class="btn green"
+                        onclick="joinEvent(${event.id})"
+                    >
+                        I'm Interested
+                    </button>
+
+                    <button
+                        class="btn"
+                        onclick="showToast('Event details opened')"
+                        style="margin-left:8px"
+                    >
+                        View Details
+                    </button>
+
+                </div>
+
+            `).join("")
+        }
+
+    `);
+}
+
+
+function joinEvent(id){
+
+    const event =
+        data.events.find(event=>event.id===id);
+
+    if(!event) return;
+
+    event.going++;
+
+    saveData();
+
+    showToast("You are on the guest list!");
+
+    render();
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+function notificationsPage(){
+
+    return layout(`
+
+        <div class="card">
+
+            <h1>Notifications</h1>
+
+            <p class="muted">
+                Stay updated with your community.
+            </p>
+
+            <br>
+
+            ${
+                data.notifications.map(notification=>`
+
+                    <div
+                        class="mini-card"
+                        style="margin:10px 0"
+                    >
+
+                        <div class="row">
+
+                            <div class="avatar">
+                                🔔
+                            </div>
+
+                            <div>
+
+                                <b>
+                                    ${escapeHTML(notification.text)}
+                                </b>
+
+                                <div class="muted">
+                                    ${escapeHTML(notification.time)}
+                                    ago
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `).join("")
+            }
+
+        </div>
+    `);
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function profilePage(){
+
+    const userPosts =
+        data.posts.filter(
+            post=>post.user===currentUser.name
+        ).length;
+
+    const joined =
+        data.communities.filter(
+            community=>community.joined
+        ).length;
+
+
+    return layout(`
+
+        <div class="card">
+
+            <div class="profile-cover"></div>
+
+            <div class="profile-avatar">
+                ${initials(currentUser.name)}
+            </div>
+
+            <div style="padding:15px 20px">
+
+                <div class="row space">
+
+                    <div>
+
+                        <h1 style="margin:0">
+                            ${escapeHTML(currentUser.name)}
+                        </h1>
+
+                        <div class="muted">
+                            📍 ${escapeHTML(currentUser.city)}
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="btn"
+                        onclick="openEditProfile()"
+                    >
+                        Edit Profile
+                    </button>
+
+                </div>
+
+                <p style="margin:15px 0">
+                    ${escapeHTML(currentUser.bio)}
+                </p>
+
+
+                <div class="grid">
+
+                    <div class="mini-card">
+                        <b>${userPosts}</b>
+                        <div class="muted">
+                            Posts
+                        </div>
+                    </div>
+
+                    <div class="mini-card">
+                        <b>${joined}</b>
+                        <div class="muted">
+                            Communities
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    `);
+}
+
+
+/* =========================
+   ADMIN
+========================= */
+
+function adminPage(){
+
+    return layout(`
+
+        <div class="row space">
+
+            <div>
+
+                <h1>Admin Center</h1>
+
+                <p class="muted">
+                    Manage your local community network.
+                </p>
+
+            </div>
+
+            <span class="tag">
+                ADMIN MODE
+            </span>
+
+        </div>
+
+
+        <br>
+
+
+        <div class="grid">
+
+            <div class="card">
+
+                <h3>Platform Health</h3>
+
+                <div class="metric">
+                    <span>Registered Users</span>
+                    <b>${data.users.length + 1284}</b>
+                </div>
+
+                <div class="metric">
+                    <span>Active Communities</span>
+                    <b>${data.communities.length + 24}</b>
+                </div>
+
+                <div class="metric">
+                    <span>Posts Today</span>
+                    <b>386</b>
+                </div>
+
+                <div class="metric">
+                    <span>Event Participation</span>
+                    <b>72%</b>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Moderation Queue</h3>
+
+                <div
+                    class="mini-card"
+                    style="margin-top:15px"
+                >
+                    ⚠️ 3 reported posts
+
+                    <button
+                        class="btn"
+                        style="float:right"
+                        onclick="showToast('Reports reviewed')"
+                    >
+                        Review
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="mini-card"
+                    style="margin-top:10px"
+                >
+                    👤 8 community requests
+
+                    <button
+                        class="btn"
+                        style="float:right"
+                        onclick="showToast('Requests approved')"
+                    >
+                        Review
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Quick Tools</h3>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="openCreateCommunity()"
+            >
+                Create Community
+            </button>
+
+            <button
+                class="btn"
+                onclick="showToast('Announcement composer opened')"
+            >
+                Pin Announcement
+            </button>
+
+            <button
+                class="btn"
+                onclick="showToast('Audit log loaded')"
+            >
+                View Audit Log
+            </button>
+
+        </div>
+
+    `);
+}
+
+
+/* =========================
+   CREATE POST
+========================= */
+
+function openCreatePost(){
+
+    const joinedCommunities =
+        data.communities.filter(c=>c.joined);
+
+
+    openModal(`
+
+        <h2>Create Community Post</h2>
+
+        <br>
+
+        <label>Community</label>
+
+        <select id="postCommunity">
+
+            ${
+                joinedCommunities.map(c=>`
+                    <option>
+                        ${escapeHTML(c.name)}
+                    </option>
+                `).join("")
+            }
+
+        </select>
+
+
+        <label>Message</label>
+
+        <textarea
+            id="postText"
+            rows="5"
+            placeholder="What is happening in your community?"
+        ></textarea>
+
+
+        <label>Category</label>
+
+        <select id="postTag">
+
+            <option>Community Update</option>
+            <option>Local Culture</option>
+            <option>Education</option>
+            <option>Help Needed</option>
+            <option>Announcement</option>
+
+        </select>
+
+
+        <div
+            class="row"
+            style="justify-content:flex-end"
+        >
+
+            <button
+                class="btn"
+                onclick="closeModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="createPost()"
+            >
+                Publish
+            </button>
+
+        </div>
+    `);
+}
+
+
+function createPost(){
+
+    const text =
+        document.getElementById("postText").value.trim();
+
+    const community =
+        document.getElementById("postCommunity").value;
+
+    const tag =
+        document.getElementById("postTag").value;
+
+
+    if(!text){
+
+        showToast("Write something first");
+        return;
+    }
+
+
+    data.posts.unshift({
+
+        id:Date.now(),
+        user:currentUser.name,
+        community,
+        time:"just now",
+        text,
+        likes:0,
+        comments:0,
+        tag
+
+    });
+
+
+    data.notifications.unshift({
+
+        id:Date.now(),
+        text:"Your new post was published successfully.",
+        time:"now"
+
+    });
+
+
+    saveData();
+
+    closeModal();
+
+    showToast("Post published!");
+
+    render();
+}
+
+
+/* =========================
+   CREATE COMMUNITY
+========================= */
+
+function openCreateCommunity(){
+
+    openModal(`
+
+        <h2>Create A Community</h2>
+
+        <br>
+
+        <input
+            id="communityName"
+            placeholder="Community Name"
+        >
+
+        <input
+            id="communityCity"
+            placeholder="City / Village"
+        >
+
+        <textarea
+            id="communityDescription"
+            rows="4"
+            placeholder="Describe your community"
+        ></textarea>
+
+
+        <div
+            class="row"
+            style="justify-content:flex-end"
+        >
+
+            <button
+                class="btn"
+                onclick="closeModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="createCommunity()"
+            >
+                Create
+            </button>
+
+        </div>
+    `);
+}
+
+
+function createCommunity(){
+
+    const name =
+        document.getElementById("communityName")
+            .value.trim();
+
+    const city =
+        document.getElementById("communityCity")
+            .value.trim();
+
+    const description =
+        document.getElementById("communityDescription")
+            .value.trim();
+
+
+    if(!name || !city){
+
+        showToast("Add name and location");
+        return;
+    }
+
+
+    data.communities.push({
+
+        id:Date.now(),
+        name,
+        city,
+        description:
+            description ||
+            "A new local community on Hometown Hub.",
+        members:1,
+        joined:true
+
+    });
+
+
+    saveData();
+
+    closeModal();
+
+    showToast("Community created!");
+
+    render();
+}
+
+
+/* =========================
+   CREATE EVENT
+========================= */
+
+function openCreateEvent(){
+
+    openModal(`
+
+        <h2>Create Community Event</h2>
+
+        <br>
+
+        <input
+            id="eventTitle"
+            placeholder="Event Title"
+        >
+
+        <input
+            id="eventDate"
+            placeholder="Date e.g. 28 Oct 2026"
+        >
+
+        <input
+            id="eventTime"
+            placeholder="Time e.g. 6:00 PM"
+        >
+
+        <input
+            id="eventPlace"
+            placeholder="Location"
+        >
+
+
+        <div
+            class="row"
+            style="justify-content:flex-end"
+        >
+
+            <button
+                class="btn"
+                onclick="closeModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="createEvent()"
+            >
+                Create Event
+            </button>
+
+        </div>
+
+    `);
+}
+
+
+function createEvent(){
+
+    const title =
+        document.getElementById("eventTitle")
+            .value.trim();
+
+    const date =
+        document.getElementById("eventDate")
+            .value.trim();
+
+    const time =
+        document.getElementById("eventTime")
+            .value.trim();
+
+    const place =
+        document.getElementById("eventPlace")
+            .value.trim();
+
+
+    if(!title || !date){
+
+        showToast("Add title and date");
+        return;
+    }
+
+
+    data.events.push({
+
+        id:Date.now(),
+        title,
+        date,
+        time:time || "6:00 PM",
+        place:place || "Community Venue",
+        going:1
+
+    });
+
+
+    saveData();
+
+    closeModal();
+
+    showToast("Event created!");
+
+    render();
+}
+
+
+/* =========================
+   EDIT PROFILE
+========================= */
+
+function openEditProfile(){
+
+    openModal(`
+
+        <h2>Edit Profile</h2>
+
+        <br>
+
+        <input
+            id="profileName"
+            value="${escapeHTML(currentUser.name)}"
+            placeholder="Name"
+        >
+
+        <input
+            id="profileCity"
+            value="${escapeHTML(currentUser.city)}"
+            placeholder="City"
+        >
+
+        <textarea
+            id="profileBio"
+            rows="4"
+            placeholder="Bio"
+        >${escapeHTML(currentUser.bio)}</textarea>
+
+
+        <div
+            class="row"
+            style="justify-content:flex-end"
+        >
+
+            <button
+                class="btn"
+                onclick="closeModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="updateProfile()"
+            >
+                Save Changes
+            </button>
+
+        </div>
+    `);
+}
+
+
+function updateProfile(){
+
+    const name =
+        document.getElementById("profileName")
+            .value.trim();
+
+    const city =
+        document.getElementById("profileCity")
+            .value.trim();
+
+    const bio =
+        document.getElementById("profileBio")
+            .value.trim();
+
+
+    if(!name || !city){
+
+        showToast("Name and city are required");
+        return;
+    }
+
+
+    currentUser.name = name;
+    currentUser.city = city;
+    currentUser.bio = bio;
+
+
+    data.users =
+        data.users.map(user=>
+            user.id===currentUser.id
+            ? currentUser
+            : user
+        );
+
+
+    saveData();
+
+    closeModal();
+
+    showToast("Profile updated!");
+
+    render();
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function openModal(content){
+
+    document.getElementById("modalBox")
+        .innerHTML = content;
+
+    document.getElementById("modal")
+        .classList.add("show");
+}
+
+
+function closeModal(){
+
+    document.getElementById("modal")
+        .classList.remove("show");
+}
+
+
+document.getElementById("modal").addEventListener(
+    "click",
+    function(event){
+
+        if(event.target.id==="modal"){
+            closeModal();
+        }
+
+    }
+);
+
+
+/* =========================
+   RENDER
+========================= */
+
+function render(){
+
+    if(!currentUser){
+
+        showLogin();
+        return;
+    }
+
+
+    const pages = {
+
+        home:homePage,
+        communities:communitiesPage,
+        events:eventsPage,
+        notifications:notificationsPage,
+        profile:profilePage,
+        admin:adminPage
+
+    };
+
+
+    const pageFunction =
+        pages[currentPage] || homePage;
+
+
+    document.getElementById("app")
+        .innerHTML = pageFunction();
+}
+
+
+/* =========================
+   START APP
+========================= */
+
+render();
+
+</script>
+
+</body>
+</html>
